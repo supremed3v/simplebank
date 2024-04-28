@@ -13,10 +13,10 @@ migrateup:
 migratedown:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 
-
-makeFileDir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-
 sqlc:
 	docker run --rm -v D:/projects/simplebank/:/src -w /src kjconroy/sqlc generate 
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc
+test:
+	go test -v -cover ./...
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
